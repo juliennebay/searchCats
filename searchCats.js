@@ -6,10 +6,14 @@ function loadScript(){
        // clear old results, if any
        Array.from(ul.children).forEach(e => e.remove())
        
-       // adding new search results
-       const li = document.createElement("li")
-       li.textContent = new Date()
-       ul.appendChild(li)  
+       // adding new search results. these 3 lines will run for each result (per breed)
+       fetch("https://api.thecatapi.com/v1/breeds")
+            .then(response => response.json())
+            .then(breeds => breeds.forEach(breed => {
+                const li = document.createElement("li") 
+                li.textContent = breed.name //some breed
+                ul.appendChild(li)  
+            }))
    }
 
    button.addEventListener("click", search)
